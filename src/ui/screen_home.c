@@ -1,24 +1,100 @@
 #include "screen_home.h"
 #include "lvgl.h"
 #include "gui.h"
-#include "screen_settings.h"
+
+void anim_y_exe_cb(void *obj, int32_t y) {
+    lv_obj_set_y(obj, y);
+}
 
 void screen_home_event_callback(lv_event_t *event) {
     const lv_event_code_t code = lv_event_get_code(event);
     if (code == LV_EVENT_GESTURE) {
         const lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_active());
         if (dir == LV_DIR_LEFT) {
-            lv_screens_info *ui = (lv_screens_info *) lv_event_get_user_data(event);
             lv_indev_wait_release(lv_indev_active());
-            setup_screen_settings(ui);
-            lv_screen_load(ui->screen_settings);
+            lv_screen_load_anim(lv_ui.screen_settings, LV_SCR_LOAD_ANIM_OVER_LEFT, 300, 0, false);
+        } else if (dir == LV_DIR_BOTTOM && !lv_ui.control_bar_active) {
+            lv_indev_wait_release(lv_indev_active());
+
+            lv_anim_t anim;
+            lv_anim_init(&anim);
+            lv_anim_set_var(&anim, lv_ui.control_bar);
+            lv_anim_set_values(&anim, -lv_obj_get_height(lv_ui.control_bar), 0);
+            lv_anim_set_duration(&anim, 500);
+            lv_anim_set_exec_cb(&anim, anim_y_exe_cb);
+            lv_anim_start(&anim);
+            lv_ui.control_bar_active = true;
+        } else if (dir == LV_DIR_TOP && lv_ui.control_bar_active) {
+            lv_indev_wait_release(lv_indev_active());
+
+            lv_anim_t anim;
+            lv_anim_init(&anim);
+            lv_anim_set_var(&anim, lv_ui.control_bar);
+            lv_anim_set_values(&anim, 0, -lv_obj_get_height(lv_ui.control_bar));
+            lv_anim_set_duration(&anim, 500);
+            lv_anim_set_exec_cb(&anim, anim_y_exe_cb);
+            lv_anim_start(&anim);
+            lv_ui.control_bar_active = false;
         }
     }
 }
 
+// 初始化顶部控制栏
+void setup_control_bar(lv_screens_info *ui) {
+    ui->control_bar = lv_obj_create(ui->screen_home);
+    lv_obj_set_style_pad_all(ui->control_bar, 0, 0);
+    lv_obj_set_style_bg_color(ui->control_bar, lv_color_hex(0xFFFFFF), 0);
+    lv_obj_set_style_bg_opa(ui->control_bar, 0, 0);
+    lv_obj_set_style_text_font(ui->control_bar, &AlibabaPuHuiTi_Regular_16, 0);
+    lv_obj_set_style_border_width(ui->control_bar, 0, 0);
+    lv_obj_set_style_radius(ui->control_bar, 0, 0);
+
+    ui->control_bar_cont = lv_obj_create(ui->control_bar);
+    lv_obj_set_size(ui->control_bar_cont, lv_pct(100), 75);
+    lv_obj_align(ui->control_bar_cont, LV_ALIGN_TOP_MID, 0, STATUS_BAR_HEIGHT);
+    lv_obj_set_style_pad_all(ui->control_bar_cont, 10, 0);
+    lv_obj_set_style_bg_color(ui->control_bar_cont, lv_color_hex(0xe5f9ff), 0);
+    lv_obj_remove_flag(ui->control_bar_cont, LV_OBJ_FLAG_SCROLLABLE);
+
+    lv_obj_set_layout(ui->control_bar_cont, LV_LAYOUT_GRID);
+    static const int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(5), LV_GRID_TEMPLATE_LAST};
+    static const int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    lv_obj_set_grid_dsc_array(ui->control_bar_cont, col_dsc, row_dsc);
+    lv_obj_set_grid_align(ui->control_bar_cont, LV_GRID_ALIGN_CENTER, LV_GRID_ALIGN_CENTER);
+
+    ui->control_bar_volume_image = lv_image_create(ui->control_bar_cont);
+    lv_obj_set_size(ui->control_bar_volume_image, 30, 30);
+    lv_image_set_src(ui->control_bar_volume_image, LV_CUSTOM_SYMBOL_VOLUME);
+    lv_obj_set_grid_cell(ui->control_bar_volume_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+
+    ui->control_bar_volume_slider = lv_slider_create(ui->control_bar_cont);
+    lv_obj_set_height(ui->control_bar_volume_slider, 10);
+    lv_slider_set_range(ui->control_bar_volume_slider, 0, 100);
+    lv_slider_set_value(ui->control_bar_volume_slider, 80, LV_ANIM_ON);
+    lv_obj_set_grid_cell(ui->control_bar_volume_slider, LV_GRID_ALIGN_STRETCH, 1, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+
+    ui->control_bar_brightness_image = lv_image_create(ui->control_bar_cont);
+    lv_obj_set_size(ui->control_bar_brightness_image, 30, 30);
+    lv_image_set_src(ui->control_bar_brightness_image, LV_CUSTOM_SYMBOL_BRIGHTNESS);
+    lv_obj_set_grid_cell(ui->control_bar_brightness_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 1, 1);
+
+    ui->control_bar_brightness_slider = lv_slider_create(ui->control_bar_cont);
+    lv_obj_set_height(ui->control_bar_brightness_slider, 10);
+    lv_slider_set_range(ui->control_bar_brightness_slider, 30, 100);
+    lv_slider_set_value(ui->control_bar_brightness_slider, 80, LV_ANIM_ON);
+    lv_obj_set_grid_cell(ui->control_bar_brightness_slider, LV_GRID_ALIGN_STRETCH, 1, 1,
+                         LV_GRID_ALIGN_CENTER, 1, 1);
+
+    lv_obj_set_size(ui->control_bar, LV_HOR_RES, LV_SIZE_CONTENT);
+    lv_obj_align_to(ui->control_bar, ui->screen_home, LV_ALIGN_OUT_TOP_MID, 0, 0);
+    ui->control_bar_active = false;
+}
+
 void setup_screen_home(lv_screens_info *ui) {
+    if (ui->screen_home != NULL) {
+        return;
+    }
     ui->screen_home = lv_obj_create(NULL);
-    lv_obj_set_style_pad_all(ui->screen_home, 0, 0);
     lv_obj_set_style_text_font(ui->screen_home, &AlibabaPuHuiTi_Regular_16, 0);
     ui->screen_home_speak_button = lv_button_create(ui->screen_home);
     lv_obj_set_size(ui->screen_home_speak_button, lv_pct(95), 25);
@@ -29,7 +105,8 @@ void setup_screen_home(lv_screens_info *ui) {
     lv_label_set_text(ui->screen_home_speak_button_label, "点击说话");
     lv_obj_align(ui->screen_home_speak_button, LV_ALIGN_BOTTOM_MID, 0, -5);
 
-    lv_screen_load(ui->screen_home);
+    setup_control_bar(ui);
 
+    lv_screen_load(ui->screen_home);
     lv_obj_add_event_cb(ui->screen_home, screen_home_event_callback, LV_EVENT_ALL, ui);
 }

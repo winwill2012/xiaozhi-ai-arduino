@@ -106,7 +106,7 @@
 燮鹫襄糜縻膺癍癌麋辫赢糟糠馘燥懑濡濮濞濠濯懦豁蹇謇邃襕襁
 臀檗甓臂擘孺隳嬷翼蟊鹬鍪骤
 
-鏊鳌鬶鬈  ！？鬃瞽藕鞯鞨鞭鞫鞧鞣藜藠藤藩鹲檫檵覆醪蹙礞礓礌燹餮
+鏊鳌鬶鬈鬃瞽藕鞯鞨鞭鞫鞧鞣藜藠藤藩鹲檫檵覆醪蹙礞礓礌燹餮
 瞿瞻曛颢曜躇蹦鹭蹢蹜蟛蟪蟠蟮嚚嚣鹮黠黟髅髂
 镬镭镯镰镱馥簠簟簪簦鼫鼬鼩雠艟翻臑鳍鳎鳏鳐鳑鹱
 鹰癞癔癜癖糨冁蹩瀑瀍瀌鎏懵襟
@@ -139,7 +139,7 @@
 鬟趱攫攥颧
 躜
 罐鼹鼷
-癯麟蠲
+癯麟 蠲
 
 矗蠹醾
 躞
@@ -155,7 +155,7 @@
 
 爨
 
-齉 --font iconfont.ttf --range 58974,58918,58907,58915,59237,58952,58949,59585,59315,58741,58881,58889,58931 --format lvgl -o AlibabaPuHuiTi_Regular_16.c
+齉 --font iconfont.ttf --range 58974,58918,58907,58915,59237,58952,58949,59585,59315,58938,58741,58881,58889,58931 --format lvgl -o AlibabaPuHuiTi_Regular_16.c
  ******************************************************************************/
 
 #ifdef __has_include
@@ -69433,6 +69433,15 @@ static LV_ATTRIBUTE_LARGE_CONST const uint8_t glyph_bitmap[] = {
     0x18, 0xe2, 0x40, 0x0, 0xe, 0x0, 0x0, 0x0,
     0xd0, 0x0,
 
+    /* U+E63A "" */
+    0x0, 0xc, 0x0, 0x0, 0x30, 0xc3, 0x0, 0x1,
+    0x40, 0x20, 0x2, 0x0, 0x0, 0x24, 0x18, 0x0,
+    0x5, 0x0, 0x0, 0x0, 0x0, 0xa0, 0x0, 0x2,
+    0x81, 0x0, 0x0, 0x4, 0x0, 0x0, 0x0, 0x1,
+    0x80, 0x0, 0x60, 0x20, 0x0, 0x1, 0x40, 0x14,
+    0x6, 0x0, 0x3, 0xc, 0x30, 0x0, 0x0, 0xc0,
+    0x0,
+
     /* U+E645 "" */
     0x0, 0x7f, 0xd0, 0x0, 0x78, 0x2, 0xd0, 0x1c,
     0x0, 0x3, 0x43, 0x0, 0x30, 0xc, 0x60, 0x2,
@@ -69489,11 +69498,6 @@ static LV_ATTRIBUTE_LARGE_CONST const uint8_t glyph_bitmap[] = {
     /* U+FF01 "！" */
     0x2, 0xc7, 0x1c, 0x71, 0xc7, 0x1c, 0x20, 0xb,
     0x2c, 0x0,
-
-    /* U+FF1F "？" */
-    0x0, 0x0, 0xff, 0x80, 0x7, 0x40, 0xe, 0x0,
-    0x34, 0x2, 0xc0, 0x3c, 0x1, 0xc0, 0x6, 0x0,
-    0x0, 0x0, 0xb0, 0x3, 0xc0, 0x0, 0x0,
 
     /* U+FFE5 "￥" */
     0x34, 0x2, 0xc2, 0xc0, 0x30, 0xe, 0xe, 0x0,
@@ -76598,13 +76602,13 @@ static const lv_font_fmt_txt_glyph_dsc_t glyph_dsc[] = {
     {.bitmap_index = 412851, .adv_w = 256, .box_w = 14, .box_h = 12, .ofs_x = 1, .ofs_y = 0},
     {.bitmap_index = 412893, .adv_w = 256, .box_w = 14, .box_h = 14, .ofs_x = 1, .ofs_y = -1},
     {.bitmap_index = 412942, .adv_w = 256, .box_w = 14, .box_h = 14, .ofs_x = 1, .ofs_y = -1},
-    {.bitmap_index = 412991, .adv_w = 256, .box_w = 16, .box_h = 9, .ofs_x = 0, .ofs_y = 1},
-    {.bitmap_index = 413027, .adv_w = 256, .box_w = 16, .box_h = 16, .ofs_x = 0, .ofs_y = -2},
-    {.bitmap_index = 413091, .adv_w = 256, .box_w = 16, .box_h = 16, .ofs_x = 0, .ofs_y = -2},
-    {.bitmap_index = 413155, .adv_w = 256, .box_w = 14, .box_h = 12, .ofs_x = 1, .ofs_y = 0},
-    {.bitmap_index = 413197, .adv_w = 252, .box_w = 3, .box_h = 13, .ofs_x = 3, .ofs_y = -1},
-    {.bitmap_index = 413207, .adv_w = 252, .box_w = 7, .box_h = 13, .ofs_x = 1, .ofs_y = -1},
-    {.bitmap_index = 413230, .adv_w = 252, .box_w = 10, .box_h = 11, .ofs_x = 3, .ofs_y = 0}
+    {.bitmap_index = 412991, .adv_w = 256, .box_w = 14, .box_h = 14, .ofs_x = 1, .ofs_y = -1},
+    {.bitmap_index = 413040, .adv_w = 256, .box_w = 16, .box_h = 9, .ofs_x = 0, .ofs_y = 1},
+    {.bitmap_index = 413076, .adv_w = 256, .box_w = 16, .box_h = 16, .ofs_x = 0, .ofs_y = -2},
+    {.bitmap_index = 413140, .adv_w = 256, .box_w = 16, .box_h = 16, .ofs_x = 0, .ofs_y = -2},
+    {.bitmap_index = 413204, .adv_w = 256, .box_w = 14, .box_h = 12, .ofs_x = 1, .ofs_y = 0},
+    {.bitmap_index = 413246, .adv_w = 252, .box_w = 3, .box_h = 13, .ofs_x = 3, .ofs_y = -1},
+    {.bitmap_index = 413256, .adv_w = 252, .box_w = 10, .box_h = 11, .ofs_x = 3, .ofs_y = 0}
 };
 
 /*---------------------
@@ -77604,8 +77608,8 @@ static const uint16_t unicode_list_53[] = {
     0xc2, 0xca, 0xd1, 0xd2, 0x100, 0x101, 0x102, 0x104,
     0x105, 0x106, 0x107, 0x108, 0x109, 0x10a, 0x10b, 0x10c,
     0x10d, 0x11a, 0x11b, 0x11c, 0x120, 0x121, 0x46f6, 0x4782,
-    0x478a, 0x479c, 0x47a4, 0x47a7, 0x47b4, 0x47c6, 0x47c9, 0x47df,
-    0x48e6, 0x4934, 0x4a42, 0x6082, 0x60a0, 0x6166
+    0x478a, 0x479c, 0x47a4, 0x47a7, 0x47b4, 0x47bb, 0x47c6, 0x47c9,
+    0x47df, 0x48e6, 0x4934, 0x4a42, 0x6082, 0x6166
 };
 
 /*Collect the unicode lists and glyph_id offsets*/
