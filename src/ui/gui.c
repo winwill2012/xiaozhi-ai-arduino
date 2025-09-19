@@ -1,6 +1,6 @@
+#include "lvgl.h"
 #include "gui.h"
 #include "screen_home.h"
-#include "lvgl.h"
 #include "screen_settings.h"
 
 void setup_ui(lv_screens_info *ui) {

@@ -1,0 +1,139 @@
+{
+  "system": {
+    "volumeRatio": 0.9,
+    "speakSpeed": 1.0,
+    "voiceType": "湾湾小何",
+    "persona": "幽默芯语"
+  },
+  "doubao": {
+    "appId": "8988564775",
+    "accessToken": "dsWgV1rCvxiinw_H2clmJuAI-O1D8P94"
+  },
+  "coze": {
+    "token": "pat_GRXFpqrHK3mBvPIGa8dLJf2nuEiqeU1m2yiBhjZ5ASTI5vP8ZsajReR5JGbWh11v",
+    "personaList": [
+      {
+        "name": "幽默芯语",
+        "botId": "7520829395142361122"
+      },
+      {
+        "name": "暴躁芯语",
+        "botId": "7520838194271633450"
+      }
+    ]
+  },
+  "voiceList": [
+    {
+      "name": "湾湾小何",
+      "value": "zh_female_wanwanxiaohe_moon_bigtts"
+    },
+    {
+      "name": "四郎",
+      "value": "zh_male_silang_mars_bigtts"
+    },
+    {
+      "name": "甜美小源",
+      "value": "zh_female_tianmeixiaoyuan_moon_bigtts"
+    },
+    {
+      "name": "暖心体贴",
+      "value": "ICL_zh_male_nuanxintitie_tob"
+    },
+    {
+      "name": "成熟姐姐",
+      "value": "ICL_zh_female_chengshujiejie_tob"
+    },
+    {
+      "name": "妩媚御姐",
+      "value": "ICL_zh_female_wumeiyujie_tob"
+    },
+    {
+      "name": "性感御姐",
+      "value": "ICL_zh_female_xingganyujie_tob"
+    },
+    {
+      "name": "傲娇女友",
+      "value": "ICL_zh_female_aojiaonvyou_tob"
+    },
+    {
+      "name": "猴哥",
+      "value": "zh_male_sunwukong_mars_bigtts"
+    },
+    {
+      "name": "熊二",
+      "value": "zh_male_xionger_mars_bigtts"
+    },
+    {
+      "name": "佩奇猪",
+      "value": "zh_female_peiqi_mars_bigtts"
+    },
+    {
+      "name": "武则天",
+      "value": "zh_female_wuzetian_mars_bigtts"
+    },
+    {
+      "name": "呆萌川妹",
+      "value": "zh_female_daimengchuanmei_moon_bigtts"
+    },
+    {
+      "name": "北京小爷",
+      "value": "zh_male_beijingxiaoye_moon_bigtts"
+    },
+    {
+      "name": "少年梓辛",
+      "value": "zh_male_shaonianzixin_moon_bigtts"
+    },
+    {
+      "name": "魅力女友",
+      "value": "zh_female_meilinvyou_moon_bigtts"
+    },
+    {
+      "name": "深夜播客",
+      "value": "zh_male_shenyeboke_moon_bigtts"
+    },
+    {
+      "name": "柔美女友",
+      "value": "zh_female_sajiaonvyou_moon_bigtts"
+    },
+    {
+      "name": "撒娇学妹",
+      "value": "zh_female_yuanqinvyou_moon_bigtts"
+    },
+    {
+      "name": "广西远舟",
+      "value": "zh_male_guangxiyuanzhou_moon_bigtts"
+    },
+    {
+      "name": "妹坨洁儿",
+      "value": "zh_female_meituojieer_moon_bigtts"
+    },
+    {
+      "name": "豫州子轩",
+      "value": "zh_male_yuzhouzixuan_moon_bigtts"
+    },
+    {
+      "name": "邻家女孩",
+      "value": "zh_female_linjianvhai_moon_bigtts"
+    },
+    {
+      "name": "高冷御姐",
+      "value": "zh_female_gaolengyujie_moon_bigtts"
+    },
+    {
+      "name": "渊博小叔",
+      "value": "zh_male_yuanboxiaoshu_moon_bigtts"
+    },
+    {
+      "name": "阳光青年",
+      "value": "zh_male_yangguangqingnian_moon_bigtts"
+    },
+    {
+      "name": "爽快思思",
+      "value": "zh_female_shuangkuaisisi_moon_bigtts"
+    },
+    {
+      "name": "温暖阿虎",
+      "value": "zh_male_wennuanahu_moon_bigtts"
+    }
+  ]
+}

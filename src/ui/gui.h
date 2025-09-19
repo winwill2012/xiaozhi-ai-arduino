@@ -30,6 +30,7 @@ typedef struct {
     lv_obj_t *status_bar_wifi_image;
 
     lv_obj_t *screen_home;
+    lv_obj_t *screen_home_bg_image;
     lv_obj_t *screen_home_speak_button;
     lv_obj_t *screen_home_speak_button_label;
 

@@ -96,6 +96,12 @@ void setup_screen_home(lv_screens_info *ui) {
     }
     ui->screen_home = lv_obj_create(NULL);
     lv_obj_set_style_text_font(ui->screen_home, &AlibabaPuHuiTi_Regular_16, 0);
+
+    ui->screen_home_bg_image = lv_image_create(ui->screen_home);
+    lv_obj_set_size(ui->screen_home_bg_image, LV_HOR_RES, LV_VER_RES);
+    lv_obj_center(ui->screen_home_bg_image);
+    lv_image_set_src(ui->screen_home_bg_image, "S:/girl.png");
+
     ui->screen_home_speak_button = lv_button_create(ui->screen_home);
     lv_obj_set_size(ui->screen_home_speak_button, lv_pct(95), 25);
     lv_obj_set_style_bg_color(ui->screen_home_speak_button, lv_color_hex(0x00b386), 0);
