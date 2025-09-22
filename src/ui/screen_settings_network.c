@@ -38,22 +38,6 @@ void load_wifi_info_timer_cb(lv_timer_t *timer) {
     }
 }
 
-void refresh_wifi_button_event_callback(lv_event_t *event) {
-    if (lv_event_get_code(event) == LV_EVENT_CLICKED) {
-        if (!loading_wifi) {
-            // 清空列表所有数据
-            lv_obj_t *child = lv_obj_get_child(lv_ui.menu_network_page_wifi_list, 0);
-            while (child != NULL) {
-                lv_obj_del(child);
-                child = lv_obj_get_child(lv_ui.menu_network_page_wifi_list, 0);
-            }
-            lv_obj_remove_flag(lv_ui.menu_network_page_wifi_list_loading_image, LV_OBJ_FLAG_HIDDEN);
-            loading_wifi = true;
-            lv_timer_create(load_wifi_info_timer_cb, 100, NULL);
-        }
-    }
-}
-
 void hide_mast_event_callback(lv_event_t *event) {
     if (lv_event_get_code(event) == LV_EVENT_CLICKED) {
         lv_obj_add_flag(lv_ui.menu_network_page_keyboard_mask, LV_OBJ_FLAG_HIDDEN);
@@ -78,9 +62,6 @@ void setup_network_setting(lv_screens_info *ui) {
     ui->menu_network_page_refresh_button_label = lv_label_create(ui->menu_network_page_refresh_button);
     lv_label_set_text(ui->menu_network_page_refresh_button_label, LV_CUSTOM_SYMBOL_RESET" 刷新");
     lv_obj_center(ui->menu_network_page_refresh_button_label);
-
-    lv_obj_add_event_cb(ui->menu_network_page_refresh_button, refresh_wifi_button_event_callback,
-                        LV_EVENT_CLICKED, NULL);
 
     ui->menu_network_page_wifi_list = lv_list_create(ui->menu_network_page_cont2);
     lv_obj_set_size(ui->menu_network_page_wifi_list, lv_pct(100), lv_pct(100));
@@ -115,7 +96,6 @@ void setup_network_setting(lv_screens_info *ui) {
     lv_obj_set_flex_flow(ui->menu_network_page_password_dialog, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(ui->menu_network_page_password_dialog, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER,
                           LV_FLEX_ALIGN_CENTER);
-    lv_obj_add_event_cb(ui->menu_network_page_keyboard_mask, hide_mast_event_callback, LV_EVENT_CLICKED, NULL);
 
     ui->menu_network_page_password_tips_label = lv_label_create(ui->menu_network_page_password_dialog);
 
@@ -124,6 +104,7 @@ void setup_network_setting(lv_screens_info *ui) {
     lv_obj_set_style_border_width(ui->menu_network_page_password_textarea, 1, 0);
     lv_obj_set_style_border_color(ui->menu_network_page_password_textarea, lv_color_hex(0x00ace6), 0);
     lv_textarea_set_one_line(ui->menu_network_page_password_textarea, true);
+    lv_textarea_set_placeholder_text(ui->menu_network_page_password_textarea, "请输入WiFi密码");
     lv_obj_remove_flag(ui->menu_network_page_password_textarea, LV_OBJ_FLAG_SCROLLABLE);
 
     ui->button_cont = lv_obj_create(ui->menu_network_page_password_dialog);
@@ -143,8 +124,6 @@ void setup_network_setting(lv_screens_info *ui) {
     lv_label_set_text(ui->cancel_button_label, "取消");
     lv_obj_center(ui->confirm_button_label);
     lv_obj_center(ui->cancel_button_label);
-    lv_obj_add_event_cb(ui->confirm_button, hide_mast_event_callback, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_event_cb(ui->cancel_button, hide_mast_event_callback, LV_EVENT_CLICKED, NULL);
 
     ui->menu_network_page_keyboard = lv_keyboard_create(ui->menu_network_page_keyboard_mask);
     lv_obj_align(ui->menu_network_page_keyboard, LV_ALIGN_BOTTOM_MID, 0, 0);

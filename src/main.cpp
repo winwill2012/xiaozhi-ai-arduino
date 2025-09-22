@@ -1,8 +1,15 @@
 #include "Arduino.h"
-#include "lvgl_display.h"
+#include "LvglDisplay.h"
+#include "Settings.h"
+#include "TimeUpdater.h"
+#include "WiFiManager.h"
 
 void setup() {
-    lvgl_begin();
+    Settings::begin();
+    Settings::setWifiInfo("ChinaNet-GdPt", "19910226");
+    LvglDisplay::begin();
+    WiFiManager::begin();
+    TimeUpdater::begin();
 }
 
 void loop() {

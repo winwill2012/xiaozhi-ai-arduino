@@ -1,8 +1,7 @@
-#include "lvgl_display.h"
-#include "lvgl.h"
+#include "LvglDisplay.h"
+#include <Arduino.h>
 #include "FT6336.h"
-#include "Arduino.h"
-#include "lvgl_spiffs.h"
+#include "LvglEventManager.h"
 
 extern "C" {
 #include "ui/gui.h"
@@ -22,6 +21,7 @@ uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 FT6336 ft(TOUCH_SDA, TOUCH_SCL, TOUCH_INT, TOUCH_RST, TFT_HOR_RES, TFT_VER_RES);
 
 lv_screens_info lv_ui;
+SemaphoreHandle_t LvglDisplay::lvglUpdateLock = xSemaphoreCreateRecursiveMutex();
 
 void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data) {
     ft.read();
@@ -40,12 +40,15 @@ static uint32_t my_tick(void) {
 
 void lvgl_loop(void *ptr) {
     while (true) {
-        lv_timer_handler();
+        if (xSemaphoreTakeRecursive(LvglDisplay::lvglUpdateLock, portMAX_DELAY) == pdTRUE) {
+            lv_timer_handler();
+            xSemaphoreGiveRecursive(LvglDisplay::lvglUpdateLock);
+        }
         vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
 
-void lvgl_begin() {
+void LvglDisplay::begin() {
     lv_init();
 
     ft.begin();
@@ -59,11 +62,28 @@ void lvgl_begin() {
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER); /*Touchpad should have POINTER type*/
     lv_indev_set_read_cb(indev, my_touchpad_read);
 
-    // 启用文件系统
-    lv_init_spiffs();
-
     // 创建一个对象
     setup_ui(&lv_ui);
 
+    LvglEventManager::registerLvglEventCallback();
+
     xTaskCreate(lvgl_loop, "lvgl-loop", 8192, nullptr, 1, nullptr);
+}
+
+void LvglDisplay::registerLvglEventCallback() {
+    lv_obj_add_event_cb(lv_ui.menu_network_page_refresh_button, nullptr, LV_EVENT_CLICKED, nullptr);
+}
+
+void LvglDisplay::updateTime(const std::string &time) {
+    if (xSemaphoreTakeRecursive(lvglUpdateLock, portMAX_DELAY) == pdTRUE) {
+        lv_label_set_text(lv_ui.status_bar_time_label, time.c_str());
+        xSemaphoreGiveRecursive(lvglUpdateLock);
+    }
+}
+
+void LvglDisplay::updateState(const std::string &state) {
+    if (xSemaphoreTakeRecursive(lvglUpdateLock, portMAX_DELAY) == pdTRUE) {
+        lv_label_set_text(lv_ui.status_bar_state_label, state.c_str());
+        xSemaphoreGiveRecursive(lvglUpdateLock);
+    }
 }

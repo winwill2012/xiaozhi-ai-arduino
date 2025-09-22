@@ -62,7 +62,6 @@ typedef struct {
     lv_obj_t *menu_network_page_wifi_list;
     const char *clicked_wifi_name;
     lv_obj_t *menu_network_page_wifi_list_loading_image;
-    lv_anim_t menu_network_page_wifi_list_loading_image_anim;
 
     lv_obj_t *menu_network_page_keyboard_mask; // 键盘遮罩层
     lv_obj_t *menu_network_page_password_dialog;
