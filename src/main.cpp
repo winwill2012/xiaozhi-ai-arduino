@@ -9,7 +9,6 @@ static auto TAG = "Main";
 
 void setup() {
     Settings::begin();
-    Settings::setWifiInfo("ChinaNet-GdPt", "19910226");
     LvglDisplay::begin();
     WiFiManager::setupWiFi();
 

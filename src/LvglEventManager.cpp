@@ -129,14 +129,14 @@ void LvglEventManager::registerLvglEventCallback() {
             if (GlobalState::getState() == Sleep ||
                 GlobalState::getState() == NetworkConnected) {
                 GlobalState::setState(Listening);
-                lv_anim_start(&lv_ui.status_bar_anim);
+//                lv_anim_start(&lv_ui.status_bar_anim);
             }
         } else if (code == LV_EVENT_RELEASED) {
             if (GlobalState::getState() == Listening) {
                 GlobalState::setState(Recognizing);
-                lv_anim_pause(&lv_ui.status_bar_anim);
-                lv_obj_set_style_bg_opa(lv_ui.status_bar, LV_OPA_COVER, 0);
-                lv_obj_set_style_bg_grad_opa(lv_ui.status_bar, LV_OPA_COVER, 0);
+//                lv_anim_pause(&lv_ui.status_bar_anim);
+//                lv_obj_set_style_bg_opa(lv_ui.status_bar, LV_OPA_COVER, 0);
+//                lv_obj_set_style_bg_grad_opa(lv_ui.status_bar, LV_OPA_COVER, 0);
             }
         }
     }, LV_EVENT_ALL, nullptr);
