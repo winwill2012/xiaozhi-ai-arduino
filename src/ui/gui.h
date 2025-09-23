@@ -4,7 +4,7 @@
 #include "src/misc/lv_types.h"
 #include "lvgl.h"
 
-LV_FONT_DECLARE(AlibabaPuHuiTi_Regular_16)
+LV_FONT_DECLARE(SourceHanSerifCN_15)
 
 #define LV_CUSTOM_SYMBOL_DOWN          "\xEE\x99\x9E" // 向下的箭头
 #define LV_CUSTOM_SYMBOL_LEFT          "\xEE\x98\xA3" // 向左的箭头
@@ -20,17 +20,21 @@ LV_FONT_DECLARE(AlibabaPuHuiTi_Regular_16)
 #define LV_CUSTOM_SYMBOL_SETTINGS      "\xEE\x9D\xA5" // 设置
 #define LV_CUSTOM_SYMBOL_RESET         "\xEE\x99\x88" // 重置
 #define LV_CUSTOM_SYMBOL_LOADING       "\xEE\x98\xBA" // 加载
+#define LV_CUSTOM_SYMBOL_MORE          "\xEE\x98\x8D" // 更多
+#define LV_CUSTOM_SYMBOL_MIC           "\xEE\x98\x9E" // 麦克风
 
 #define STATUS_BAR_HEIGHT 25
+#define SPEAK_BUTTON_HEIGHT 35
 
 typedef struct {
     lv_obj_t *status_bar;
+    lv_anim_t status_bar_anim;
     lv_obj_t *status_bar_time_label;
     lv_obj_t *status_bar_state_label;
     lv_obj_t *status_bar_wifi_image;
 
     lv_obj_t *screen_home;
-    lv_obj_t *screen_home_bg_image;
+    lv_obj_t *screen_home_message_list;
     lv_obj_t *screen_home_speak_button;
     lv_obj_t *screen_home_speak_button_label;
 
@@ -41,6 +45,8 @@ typedef struct {
     lv_obj_t *control_bar_volume_slider;
     lv_obj_t *control_bar_brightness_image;
     lv_obj_t *control_bar_brightness_slider;
+    lv_obj_t *control_bar_more_settings_button;
+    lv_obj_t *control_bar_more_settings_button_label;
 
     lv_obj_t *screen_settings;
     lv_obj_t *menu;

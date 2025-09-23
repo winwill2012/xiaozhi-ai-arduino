@@ -1,5 +1,6 @@
 #include "TimeUpdater.h"
 #include <NTPClient.h>
+#include <WiFi.h>
 #include <WiFiUdp.h>
 
 #include "LvglDisplay.h"

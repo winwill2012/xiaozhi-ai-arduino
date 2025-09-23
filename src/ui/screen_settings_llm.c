@@ -22,7 +22,7 @@ void setup_settings_llm(lv_screens_info *ui) {
     ui->menu_llm_page_speed_label = lv_label_create(ui->menu_llm_page_cont2);
     lv_label_set_text(ui->menu_llm_page_speed_label, "语速");
     ui->menu_llm_page_speed_slider = lv_slider_create(ui->menu_llm_page_cont2);
-    lv_slider_set_range(ui->menu_llm_page_speed_slider, 0, 100);
+    lv_slider_set_range(ui->menu_llm_page_speed_slider, 8, 20);
     lv_obj_set_height(ui->menu_llm_page_speed_slider, 5);
     lv_obj_set_style_pad_hor(ui->menu_llm_page_speed_slider, 10, 0);
     lv_obj_set_flex_grow(ui->menu_llm_page_speed_slider, 1);

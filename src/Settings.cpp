@@ -20,21 +20,23 @@ std::string Settings::wifiSsid;
 std::string Settings::wifiPassword;
 std::vector<WifiInfo> Settings::scannedWifiList = std::vector<WifiInfo>();
 
+static auto TAG = "Settings";
+
 void Settings::begin() {
     if (!SPIFFS.begin(true)) {
-        log_e("an Error has occurred while mounting SPIFFS");
+        ESP_LOGE(TAG, "挂载SPIFFS文件系统失败");
         ESP.restart();
     }
     File file = SPIFFS.open("/settings.json", "r");
     if (!file) {
-        log_e("failed to open settings.json file for reading");
+        ESP_LOGE(TAG, "读取settings.json配置文件失败");
         ESP.restart();
     }
     JsonDocument doc;
     const DeserializationError error = deserializeJson(doc, file);
     file.close();
     if (error) {
-        log_e("deserialize settings.json failed: %s", error.c_str());
+        ESP_LOGE(TAG, "解析settings.json配置文件失败: %s", error.c_str());
         ESP.restart();
     }
 
@@ -76,34 +78,17 @@ void Settings::reset() {
 }
 
 void Settings::show() {
-    ESP_LOGI("Settings", "------------------------当前系统配置---------------------------------");
-    ESP_LOGI("Settings", "  当前音量: %f", currentSpeakVolumeRatio);
-    ESP_LOGI("Settings", "  当前语速: %f", currentSpeakSpeedRatio);
-    ESP_LOGI("Settings", "  当前音色: %s", currentVoice.c_str());
-    ESP_LOGI("Settings", "  当前性格: %s", currentPersona.c_str());
-    ESP_LOGI("Settings", "豆包AppId: %s", doubaoAppId.c_str());
-    ESP_LOGI("Settings", "豆包Token: %s", doubaoAccessToken.c_str());
-    ESP_LOGI("Settings", "扣子Token: %s", cozeToken.c_str());
-    ESP_LOGI("Settings", "WiFi Sid: %s", wifiSsid.c_str());
-    ESP_LOGI("Settings", " WiFi密码: %s", wifiPassword.c_str());
-    ESP_LOGI("Settings", "-------------------------------------------------------------------");
-}
-
-/**
-*  扫描设备周围WiFi列表
-*/
-std::vector<WifiInfo> Settings::getWifiList() {
-    ESP_LOGD("Settings", "开始扫描周边WiFi列表...");
-    const int16_t number = WiFi.scanNetworks(true);
-    if (number == 0) {
-        return {};
-    }
-    ESP_LOGD("Settings", "周边WiFi扫描结束, 一共 %d 个AP", number);
-    scannedWifiList.clear();
-    for (int i = 0; i < number; i++) {
-        scannedWifiList.emplace_back(WiFi.SSID(i), WiFi.RSSI(i), WiFi.encryptionType(i) != WIFI_AUTH_OPEN);
-    }
-    return scannedWifiList;
+    ESP_LOGI(TAG, "------------------------当前系统配置---------------------------------");
+    ESP_LOGI(TAG, "  当前音量: %f", currentSpeakVolumeRatio);
+    ESP_LOGI(TAG, "  当前语速: %f", currentSpeakSpeedRatio);
+    ESP_LOGI(TAG, "  当前音色: %s", currentVoice.c_str());
+    ESP_LOGI(TAG, "  当前性格: %s", currentPersona.c_str());
+    ESP_LOGI(TAG, "豆包AppId: %s", doubaoAppId.c_str());
+    ESP_LOGI(TAG, "豆包Token: %s", doubaoAccessToken.c_str());
+    ESP_LOGI(TAG, "扣子Token: %s", cozeToken.c_str());
+    ESP_LOGI(TAG, "WiFi Sid: %s", wifiSsid.c_str());
+    ESP_LOGI(TAG, " WiFi密码: %s", wifiPassword.c_str());
+    ESP_LOGI(TAG, "-------------------------------------------------------------------");
 }
 
 String Settings::getCurrentVoice() {
@@ -152,6 +137,7 @@ void Settings::setCurrentSpeakSpeedRatio(const double speakSpeedRatio) {
 }
 
 void Settings::setWifiInfo(const std::string &ssid, const std::string &password) {
+    ESP_LOGI(TAG, "保存WiFi连接信息：%s, %s", ssid.c_str(), password.c_str());
     wifiSsid = ssid;
     wifiPassword = password;
     preferences.begin(SETTINGS_NAMESPACE);

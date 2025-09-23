@@ -24,7 +24,7 @@ void setup_screen_settings(lv_screens_info *ui) {
         return;
     }
     ui->screen_settings = lv_obj_create(NULL);
-    lv_obj_set_style_text_font(ui->screen_settings, &AlibabaPuHuiTi_Regular_16, 0);
+    lv_obj_set_style_text_font(ui->screen_settings, &SourceHanSerifCN_15, 0);
     ui->menu = lv_menu_create(ui->screen_settings);
     lv_obj_set_size(ui->menu, LV_HOR_RES, LV_VER_RES - STATUS_BAR_HEIGHT);
     lv_obj_set_style_bg_color(ui->menu, lv_color_hex(0xF0F0F0), 0);

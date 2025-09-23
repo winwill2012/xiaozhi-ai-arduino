@@ -35,8 +35,6 @@ public:
 
     static void show();
 
-    static std::vector<WifiInfo> getWifiList();
-
     static String getCurrentVoice();
 
     static int getScreenBrightness();
