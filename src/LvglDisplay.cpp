@@ -172,7 +172,7 @@ void LvglDisplay::updateChatText(const bool newLine, const std::string &text) {
 void LvglDisplay::forbidSpeak(const bool forbid) {
     if (forbid) {
         lv_obj_remove_flag(lv_ui.screen_home_speak_button, LV_OBJ_FLAG_CLICKABLE);
-        lv_obj_set_style_bg_color(lv_ui.screen_home_speak_button, lv_color_hex(0xffad33), 0);
+        lv_obj_set_style_bg_color(lv_ui.screen_home_speak_button, lv_color_hex(0xff0000), 0);
         lv_label_set_text(lv_ui.screen_home_speak_button_label, LV_CUSTOM_SYMBOL_MIC" 请先双击状态栏联网");
     } else {
         lv_obj_add_flag(lv_ui.screen_home_speak_button, LV_OBJ_FLAG_CLICKABLE);

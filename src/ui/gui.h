@@ -4,7 +4,7 @@
 #include "src/misc/lv_types.h"
 #include "lvgl.h"
 
-LV_FONT_DECLARE(SourceHanSerifCN_15)
+LV_FONT_DECLARE(AlibabaPuHuiTi_Regular_15)
 
 #define LV_CUSTOM_SYMBOL_DOWN          "\xEE\x99\x9E" // 向下的箭头
 #define LV_CUSTOM_SYMBOL_LEFT          "\xEE\x98\xA3" // 向左的箭头
@@ -103,6 +103,9 @@ typedef struct {
     lv_obj_t *menu_page_reset;
     lv_obj_t *menu_page_reset_button;
     lv_obj_t *menu_page_reset_button_label;
+    lv_obj_t *menu_page_reset_msgbox;
+    lv_obj_t *menu_page_reset_msgbox_confirm_button;
+    lv_obj_t *menu_page_reset_msgbox_cancel_button;
 } lv_screens_info;
 
 extern lv_screens_info lv_ui;

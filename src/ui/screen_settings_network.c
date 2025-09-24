@@ -84,7 +84,7 @@ void setup_network_setting(lv_screens_info *ui) {
     lv_obj_set_flex_flow(ui->menu_network_page_keyboard_mask, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(ui->menu_network_page_keyboard_mask, LV_FLEX_ALIGN_END,
                           LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_END);
-    lv_obj_set_style_text_font(ui->menu_network_page_keyboard_mask, &SourceHanSerifCN_15, 0);
+    lv_obj_set_style_text_font(ui->menu_network_page_keyboard_mask, &AlibabaPuHuiTi_Regular_15, 0);
     lv_obj_add_flag(ui->menu_network_page_keyboard_mask, LV_OBJ_FLAG_HIDDEN); // 隐藏遮罩层
 
     ui->menu_network_page_password_dialog = lv_obj_create(ui->menu_network_page_keyboard_mask);

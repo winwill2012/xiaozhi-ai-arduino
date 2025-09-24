@@ -17,7 +17,7 @@ void setup_ui(lv_screens_info *ui) {
     lv_obj_set_style_bg_color(lv_ui.status_bar, lv_color_hex(0xff3300), 0);
     lv_obj_set_style_bg_grad_color(lv_ui.status_bar, lv_color_hex(0x0073e6), 0);
     lv_obj_set_style_bg_grad_dir(lv_ui.status_bar, LV_GRAD_DIR_HOR, 0);
-    lv_obj_set_style_text_font(ui->status_bar, &SourceHanSerifCN_15, 0);
+    lv_obj_set_style_text_font(ui->status_bar, &AlibabaPuHuiTi_Regular_15, 0);
     lv_obj_set_style_radius(ui->status_bar, 0, 0);
     lv_obj_set_style_text_color(ui->status_bar, lv_color_hex(0xFFFFFF), 0);
     lv_obj_set_layout(ui->status_bar, LV_LAYOUT_FLEX);

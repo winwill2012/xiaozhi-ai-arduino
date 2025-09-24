@@ -81,7 +81,7 @@ void setup_control_bar(lv_screens_info *ui) {
     lv_obj_set_style_pad_all(ui->control_bar, 0, 0);
     lv_obj_set_style_bg_color(ui->control_bar, lv_color_hex(0xFFFFFF), 0);
     lv_obj_set_style_bg_opa(ui->control_bar, 0, 0);
-    lv_obj_set_style_text_font(ui->control_bar, &SourceHanSerifCN_15, 0);
+    lv_obj_set_style_text_font(ui->control_bar, &AlibabaPuHuiTi_Regular_15, 0);
     lv_obj_set_style_border_width(ui->control_bar, 0, 0);
     lv_obj_set_style_radius(ui->control_bar, 0, 0);
 
@@ -137,7 +137,7 @@ void setup_screen_home(lv_screens_info *ui) {
         return;
     }
     ui->screen_home = lv_obj_create(NULL);
-    lv_obj_set_style_text_font(ui->screen_home, &SourceHanSerifCN_15, 0);
+    lv_obj_set_style_text_font(ui->screen_home, &AlibabaPuHuiTi_Regular_15, 0);
 
     ui->screen_home_message_list = lv_list_create(ui->screen_home);
     lv_obj_set_size(ui->screen_home_message_list, lv_pct(95),
