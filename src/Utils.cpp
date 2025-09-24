@@ -1,14 +1,8 @@
 #include <GlobalState.h>
 #include <vector>
-
 #include "LvglDisplay.h"
-#include "utils.h"
-#include "ui/gui.h"
-#include "misc/lv_timer_private.h"
+#include "Utils.h"
 auto charset = "0123456789abcdef";
-
-static bool isConnectingWifi = false;
-static int connectRetries = 0;
 
 std::string generateTaskId() {
     randomSeed(millis());

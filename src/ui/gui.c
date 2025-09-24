@@ -42,7 +42,7 @@ void setup_ui(lv_screens_info *ui) {
 
     ui->status_bar_wifi_image = lv_image_create(ui->status_bar);
     lv_obj_set_size(ui->status_bar_wifi_image, 30, 30);
-    lv_image_set_src(ui->status_bar_wifi_image, LV_CUSTOM_SYMBOL_WIFI);
+    lv_image_set_src(ui->status_bar_wifi_image, LV_CUSTOM_SYMBOL_NO_WIFI);
 
     setup_screen_home(ui);
     setup_screen_settings(ui);

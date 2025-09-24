@@ -56,6 +56,7 @@ bool WiFiManager::setupWiFi(const char *ssid, const char *password, int maxRetri
         ESP_LOGI(TAG, "WiFi连接成功: %s, %s", ssid, password);
         GlobalState::setState(NetworkConnected);
         LvglDisplay::forbidSpeak(false);
+        lv_image_set_src(lv_ui.status_bar_wifi_image, LV_CUSTOM_SYMBOL_WIFI);
         Settings::setWifiInfo(ssid, password); // 保存密码，下次直接连接
         TimeUpdater::begin(); // 联网成功，启动时间更新任务
         isConnectingWifi = false;
@@ -70,6 +71,7 @@ bool WiFiManager::setupWiFi(const char *ssid, const char *password, int maxRetri
             WiFi.disconnect(false, true);
             GlobalState::setState(NetworkConnectFailed);
             LvglDisplay::forbidSpeak(true);
+            lv_image_set_src(lv_ui.status_bar_wifi_image, LV_CUSTOM_SYMBOL_NO_WIFI);
             isConnectingWifi = false;
             connectRetries = 0;
             return true;

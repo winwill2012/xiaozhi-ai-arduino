@@ -4,6 +4,8 @@
 #include "Application.h"
 #include "driver/i2s.h"
 
+static auto TAG = "AudioPlayer";
+
 AudioPlayer::AudioPlayer() {
     _taskQueue = xQueueCreate(30, sizeof(PlayAudioTask));
 }
@@ -25,13 +27,13 @@ void playAudio(void *ptr) {
                                                portMAX_DELAY);
             free(task.data);
             if (result != ESP_OK) {
-                ESP_LOGE("AudioPlayer", "通过I2S播放音频数据失败, errorCode: %d", result);
+                ESP_LOGE(TAG, "通过I2S播放音频数据失败, errorCode: %d", result);
             }
 
             // 处于播放状态，并且语音已经播放完成，则进入待机模式
             if (uxQueueMessagesWaiting(Application::audioPlayer()->getTaskQueue()) == 0
                 && GlobalState::getState() == Speaking) {
-                ESP_LOGI("AudioPlayer", "音频播放完毕，进入待命状态");
+                ESP_LOGI(TAG, "音频播放完毕，进入待命状态");
                 GlobalState::setState(Sleep);
             }
         }

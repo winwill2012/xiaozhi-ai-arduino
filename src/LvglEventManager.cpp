@@ -9,8 +9,6 @@
 bool LvglEventManager::isRefreshingWiFi = false;
 int LvglEventManager::refreshImageAngle = 0;
 
-static auto TAG = "LvglEventManager";
-
 void network_setting_password_dialog_confirm_button_cb(lv_event_t *event) {
     if (lv_event_get_code(event) == LV_EVENT_CLICKED) {
         WiFiManager::setupWiFiWithAnim(lv_ui.clicked_wifi_name,
