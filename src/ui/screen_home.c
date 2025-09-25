@@ -76,90 +76,90 @@ void screen_home_event_callback(lv_event_t *event) {
 }
 
 // 初始化顶部控制栏
-void setup_control_bar(lv_screens_info *ui) {
-    ui->control_bar = lv_obj_create(ui->screen_home);
-    lv_obj_set_style_pad_all(ui->control_bar, 0, 0);
-    lv_obj_set_style_bg_color(ui->control_bar, lv_color_hex(0xFFFFFF), 0);
-    lv_obj_set_style_bg_opa(ui->control_bar, 0, 0);
-    lv_obj_set_style_text_font(ui->control_bar, &AlibabaPuHuiTi_Regular_15, 0);
-    lv_obj_set_style_border_width(ui->control_bar, 0, 0);
-    lv_obj_set_style_radius(ui->control_bar, 0, 0);
+void setup_control_bar() {
+    lv_ui.control_bar = lv_obj_create(lv_ui.screen_home);
+    lv_obj_set_style_pad_all(lv_ui.control_bar, 0, 0);
+    lv_obj_set_style_bg_color(lv_ui.control_bar, lv_color_hex(0xFFFFFF), 0);
+    lv_obj_set_style_bg_opa(lv_ui.control_bar, 0, 0);
+    lv_obj_set_style_text_font(lv_ui.control_bar, &AlibabaPuHuiTi_Regular_15, 0);
+    lv_obj_set_style_border_width(lv_ui.control_bar, 0, 0);
+    lv_obj_set_style_radius(lv_ui.control_bar, 0, 0);
 
-    ui->control_bar_cont = lv_obj_create(ui->control_bar);
-    lv_obj_set_size(ui->control_bar_cont, lv_pct(100), LV_SIZE_CONTENT);
-    lv_obj_align(ui->control_bar_cont, LV_ALIGN_TOP_MID, 0, STATUS_BAR_HEIGHT);
-    lv_obj_set_style_pad_all(ui->control_bar_cont, 10, 0);
-    lv_obj_set_style_bg_color(ui->control_bar_cont, lv_color_hex(0xe5f9ff), 0);
-    lv_obj_remove_flag(ui->control_bar_cont, LV_OBJ_FLAG_SCROLLABLE);
+    lv_ui.control_bar_cont = lv_obj_create(lv_ui.control_bar);
+    lv_obj_set_size(lv_ui.control_bar_cont, lv_pct(100), LV_SIZE_CONTENT);
+    lv_obj_align(lv_ui.control_bar_cont, LV_ALIGN_TOP_MID, 0, STATUS_BAR_HEIGHT);
+    lv_obj_set_style_pad_all(lv_ui.control_bar_cont, 10, 0);
+    lv_obj_set_style_bg_color(lv_ui.control_bar_cont, lv_color_hex(0xe5f9ff), 0);
+    lv_obj_remove_flag(lv_ui.control_bar_cont, LV_OBJ_FLAG_SCROLLABLE);
 
-    lv_obj_set_layout(ui->control_bar_cont, LV_LAYOUT_GRID);
+    lv_obj_set_layout(lv_ui.control_bar_cont, LV_LAYOUT_GRID);
     static const int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(5), LV_GRID_TEMPLATE_LAST};
     static const int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    lv_obj_set_grid_dsc_array(ui->control_bar_cont, col_dsc, row_dsc);
-    lv_obj_set_grid_align(ui->control_bar_cont, LV_GRID_ALIGN_CENTER, LV_GRID_ALIGN_CENTER);
+    lv_obj_set_grid_dsc_array(lv_ui.control_bar_cont, col_dsc, row_dsc);
+    lv_obj_set_grid_align(lv_ui.control_bar_cont, LV_GRID_ALIGN_CENTER, LV_GRID_ALIGN_CENTER);
 
-    ui->control_bar_volume_image = lv_image_create(ui->control_bar_cont);
-    lv_obj_set_size(ui->control_bar_volume_image, 30, 30);
-    lv_image_set_src(ui->control_bar_volume_image, LV_CUSTOM_SYMBOL_VOLUME);
-    lv_obj_set_grid_cell(ui->control_bar_volume_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_ui.control_bar_volume_image = lv_image_create(lv_ui.control_bar_cont);
+    lv_obj_set_size(lv_ui.control_bar_volume_image, 30, 30);
+    lv_image_set_src(lv_ui.control_bar_volume_image, LV_CUSTOM_SYMBOL_VOLUME);
+    lv_obj_set_grid_cell(lv_ui.control_bar_volume_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
 
-    ui->control_bar_volume_slider = lv_slider_create(ui->control_bar_cont);
-    lv_obj_set_height(ui->control_bar_volume_slider, 10);
-    lv_slider_set_range(ui->control_bar_volume_slider, 0, 100);
-    lv_slider_set_value(ui->control_bar_volume_slider, 80, LV_ANIM_ON);
-    lv_obj_set_grid_cell(ui->control_bar_volume_slider, LV_GRID_ALIGN_STRETCH, 1, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    lv_ui.control_bar_volume_slider = lv_slider_create(lv_ui.control_bar_cont);
+    lv_obj_set_height(lv_ui.control_bar_volume_slider, 10);
+    lv_slider_set_range(lv_ui.control_bar_volume_slider, 0, 100);
+    lv_slider_set_value(lv_ui.control_bar_volume_slider, 80, LV_ANIM_ON);
+    lv_obj_set_grid_cell(lv_ui.control_bar_volume_slider, LV_GRID_ALIGN_STRETCH, 1, 1, LV_GRID_ALIGN_CENTER, 0, 1);
 
-    ui->control_bar_brightness_image = lv_image_create(ui->control_bar_cont);
-    lv_obj_set_size(ui->control_bar_brightness_image, 30, 30);
-    lv_image_set_src(ui->control_bar_brightness_image, LV_CUSTOM_SYMBOL_BRIGHTNESS);
-    lv_obj_set_grid_cell(ui->control_bar_brightness_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 1, 1);
+    lv_ui.control_bar_brightness_image = lv_image_create(lv_ui.control_bar_cont);
+    lv_obj_set_size(lv_ui.control_bar_brightness_image, 30, 30);
+    lv_image_set_src(lv_ui.control_bar_brightness_image, LV_CUSTOM_SYMBOL_BRIGHTNESS);
+    lv_obj_set_grid_cell(lv_ui.control_bar_brightness_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 1, 1);
 
-    ui->control_bar_brightness_slider = lv_slider_create(ui->control_bar_cont);
-    lv_obj_set_height(ui->control_bar_brightness_slider, 10);
-    lv_slider_set_range(ui->control_bar_brightness_slider, 30, 100);
-    lv_slider_set_value(ui->control_bar_brightness_slider, 80, LV_ANIM_ON);
-    lv_obj_set_grid_cell(ui->control_bar_brightness_slider, LV_GRID_ALIGN_STRETCH, 1, 1, LV_GRID_ALIGN_CENTER, 1, 1);
+    lv_ui.control_bar_brightness_slider = lv_slider_create(lv_ui.control_bar_cont);
+    lv_obj_set_height(lv_ui.control_bar_brightness_slider, 10);
+    lv_slider_set_range(lv_ui.control_bar_brightness_slider, 30, 100);
+    lv_slider_set_value(lv_ui.control_bar_brightness_slider, 80, LV_ANIM_ON);
+    lv_obj_set_grid_cell(lv_ui.control_bar_brightness_slider, LV_GRID_ALIGN_STRETCH, 1, 1, LV_GRID_ALIGN_CENTER, 1, 1);
 
-    ui->control_bar_more_settings_button = lv_button_create(ui->control_bar_cont);
-    lv_obj_set_size(ui->control_bar_more_settings_button, LV_SIZE_CONTENT, 30);
-    ui->control_bar_more_settings_button_label = lv_label_create(ui->control_bar_more_settings_button);
-    lv_obj_center(ui->control_bar_more_settings_button_label);
-    lv_label_set_text(ui->control_bar_more_settings_button_label, LV_CUSTOM_SYMBOL_SETTINGS" 设置");
-    lv_obj_set_grid_cell(ui->control_bar_more_settings_button, LV_GRID_ALIGN_END, 1, 1, LV_GRID_ALIGN_CENTER, 2, 1);
+    lv_ui.control_bar_more_settings_button = lv_button_create(lv_ui.control_bar_cont);
+    lv_obj_set_size(lv_ui.control_bar_more_settings_button, LV_SIZE_CONTENT, 30);
+    lv_ui.control_bar_more_settings_button_label = lv_label_create(lv_ui.control_bar_more_settings_button);
+    lv_obj_center(lv_ui.control_bar_more_settings_button_label);
+    lv_label_set_text(lv_ui.control_bar_more_settings_button_label, LV_CUSTOM_SYMBOL_SETTINGS" 设置");
+    lv_obj_set_grid_cell(lv_ui.control_bar_more_settings_button, LV_GRID_ALIGN_END, 1, 1, LV_GRID_ALIGN_CENTER, 2, 1);
 
-    lv_obj_set_size(ui->control_bar, LV_HOR_RES, LV_SIZE_CONTENT);
-    lv_obj_align_to(ui->control_bar, ui->screen_home, LV_ALIGN_OUT_TOP_MID, 0, 0);
-    ui->control_bar_active = false;
+    lv_obj_set_size(lv_ui.control_bar, LV_HOR_RES, LV_SIZE_CONTENT);
+    lv_obj_align_to(lv_ui.control_bar, lv_ui.screen_home, LV_ALIGN_OUT_TOP_MID, 0, 0);
+    lv_ui.control_bar_active = false;
 }
 
-void setup_screen_home(lv_screens_info *ui) {
-    if (ui->screen_home != NULL) {
+void setup_screen_home() {
+    if (lv_ui.screen_home != NULL) {
         return;
     }
-    ui->screen_home = lv_obj_create(NULL);
-    lv_obj_set_style_text_font(ui->screen_home, &AlibabaPuHuiTi_Regular_15, 0);
+    lv_ui.screen_home = lv_obj_create(NULL);
+    lv_obj_set_style_text_font(lv_ui.screen_home, &AlibabaPuHuiTi_Regular_15, 0);
 
-    ui->screen_home_message_list = lv_list_create(ui->screen_home);
-    lv_obj_set_size(ui->screen_home_message_list, lv_pct(95),
+    lv_ui.screen_home_message_list = lv_list_create(lv_ui.screen_home);
+    lv_obj_set_size(lv_ui.screen_home_message_list, lv_pct(95),
                     LV_VER_RES - STATUS_BAR_HEIGHT - SPEAK_BUTTON_HEIGHT - 15);
-    lv_obj_align(ui->screen_home_message_list, LV_ALIGN_TOP_MID, 0, STATUS_BAR_HEIGHT + 5);
-    lv_obj_set_style_border_width(ui->screen_home_message_list, 0, 0);
+    lv_obj_align(lv_ui.screen_home_message_list, LV_ALIGN_TOP_MID, 0, STATUS_BAR_HEIGHT + 5);
+    lv_obj_set_style_border_width(lv_ui.screen_home_message_list, 0, 0);
 
-    ui->screen_home_speak_button = lv_button_create(ui->screen_home);
-    lv_obj_set_size(ui->screen_home_speak_button, lv_pct(95), SPEAK_BUTTON_HEIGHT);
-    lv_obj_set_style_bg_color(ui->screen_home_speak_button, lv_color_hex(0x00b386), 0);
-    lv_obj_set_style_radius(ui->screen_home_speak_button, 5, 0);
-    ui->screen_home_speak_button_label = lv_label_create(ui->screen_home_speak_button);
-    lv_obj_center(ui->screen_home_speak_button_label);
-    lv_label_set_text(ui->screen_home_speak_button_label, LV_CUSTOM_SYMBOL_MIC" 按住说话");
-    lv_obj_align(ui->screen_home_speak_button, LV_ALIGN_BOTTOM_MID, 0, -5);
+    lv_ui.screen_home_speak_button = lv_button_create(lv_ui.screen_home);
+    lv_obj_set_size(lv_ui.screen_home_speak_button, lv_pct(95), SPEAK_BUTTON_HEIGHT);
+    lv_obj_set_style_bg_color(lv_ui.screen_home_speak_button, lv_color_hex(0x00b386), 0);
+    lv_obj_set_style_radius(lv_ui.screen_home_speak_button, 5, 0);
+    lv_ui.screen_home_speak_button_label = lv_label_create(lv_ui.screen_home_speak_button);
+    lv_obj_center(lv_ui.screen_home_speak_button_label);
+    lv_label_set_text(lv_ui.screen_home_speak_button_label, LV_CUSTOM_SYMBOL_MIC" 按住说话");
+    lv_obj_align(lv_ui.screen_home_speak_button, LV_ALIGN_BOTTOM_MID, 0, -5);
 
-    setup_control_bar(ui);
+    setup_control_bar();
 
-    lv_screen_load(ui->screen_home);
-    lv_obj_add_event_cb(ui->status_bar, status_bar_event_callback, LV_EVENT_DOUBLE_CLICKED, ui);
-    lv_obj_add_event_cb(ui->screen_home, screen_home_event_callback, LV_EVENT_GESTURE, ui);
-    lv_obj_add_event_cb(ui->control_bar, screen_home_event_callback, LV_EVENT_GESTURE, ui);
-    lv_obj_add_event_cb(ui->control_bar_more_settings_button, more_settings_click_event_callback,
+    lv_screen_load(lv_ui.screen_home);
+    lv_obj_add_event_cb(lv_ui.status_bar, status_bar_event_callback, LV_EVENT_DOUBLE_CLICKED, NULL);
+    lv_obj_add_event_cb(lv_ui.screen_home, screen_home_event_callback, LV_EVENT_GESTURE, NULL);
+    lv_obj_add_event_cb(lv_ui.control_bar, screen_home_event_callback, LV_EVENT_GESTURE, NULL);
+    lv_obj_add_event_cb(lv_ui.control_bar_more_settings_button, more_settings_click_event_callback,
                         LV_EVENT_CLICKED, NULL);
 }

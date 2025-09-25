@@ -1,7 +1,6 @@
 #ifndef LVGL_SCREEN_SETTINGS_H
 #define LVGL_SCREEN_SETTINGS_H
-#include "gui.h"
 
-void setup_screen_settings(lv_screens_info *ui);
+void setup_screen_settings();
 
 #endif //LVGL_SCREEN_SETTINGS_H

@@ -1,8 +1,6 @@
 #ifndef LVGL_SCREEN_SETTINGS_RESET_H
 #define LVGL_SCREEN_SETTINGS_RESET_H
 
-#include "gui.h"
-
-void setup_settings_reset(lv_screens_info *ui);
+void setup_settings_reset();
 
 #endif //LVGL_SCREEN_SETTINGS_RESET_H

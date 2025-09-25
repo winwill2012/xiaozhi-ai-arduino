@@ -23,6 +23,7 @@ uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 FT6336 ft(TOUCH_SDA, TOUCH_SCL, TOUCH_INT, TOUCH_RST, TFT_HOR_RES, TFT_VER_RES);
 
 lv_screens_info lv_ui;
+
 lv_obj_t *LvglDisplay::last_message;
 int LvglDisplay::current_message_number = 0;
 SemaphoreHandle_t LvglDisplay::lvglUpdateLock = xSemaphoreCreateRecursiveMutex();
@@ -70,8 +71,7 @@ void LvglDisplay::begin() {
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER); /*Touchpad should have POINTER type*/
     lv_indev_set_read_cb(indev, my_touchpad_read);
 
-    // 创建一个对象
-    setup_ui(&lv_ui);
+    setup_ui();
 
     LvglEventManager::registerLvglEventCallback();
 

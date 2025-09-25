@@ -4,6 +4,7 @@
 #include "src/misc/lv_types.h"
 #include "lvgl.h"
 
+// 声明阿里巴巴中文字体（通知支持下方所有图标）
 LV_FONT_DECLARE(AlibabaPuHuiTi_Regular_15)
 
 #define LV_CUSTOM_SYMBOL_DOWN          "\xEE\x99\x9E" // 向下的箭头
@@ -23,21 +24,24 @@ LV_FONT_DECLARE(AlibabaPuHuiTi_Regular_15)
 #define LV_CUSTOM_SYMBOL_MORE          "\xEE\x98\x8D" // 更多
 #define LV_CUSTOM_SYMBOL_MIC           "\xEE\x98\x9E" // 麦克风
 
-#define STATUS_BAR_HEIGHT 25
-#define SPEAK_BUTTON_HEIGHT 35
+#define STATUS_BAR_HEIGHT 25     // 顶部状态栏的高度
+#define SPEAK_BUTTON_HEIGHT 35   // 底部说话按钮的高度
 
+// 定义一个结构体，用于管理整个项目UI上用到的所有对象
 typedef struct {
+    // 顶部状态栏相关组件
     lv_obj_t *status_bar;
-    lv_anim_t status_bar_anim;
     lv_obj_t *status_bar_time_label;
     lv_obj_t *status_bar_state_label;
     lv_obj_t *status_bar_wifi_image;
 
+    // 首页相关组件
     lv_obj_t *screen_home;
     lv_obj_t *screen_home_message_list;
     lv_obj_t *screen_home_speak_button;
     lv_obj_t *screen_home_speak_button_label;
 
+    // 首页顶部下拉设置框相关组件
     lv_obj_t *control_bar;
     bool control_bar_active;
     lv_obj_t *control_bar_cont;
@@ -48,6 +52,7 @@ typedef struct {
     lv_obj_t *control_bar_more_settings_button;
     lv_obj_t *control_bar_more_settings_button_label;
 
+    // 设置页相关组件
     lv_obj_t *screen_settings;
     lv_obj_t *menu;
     lv_obj_t *menu_main_page;
@@ -58,17 +63,16 @@ typedef struct {
     lv_obj_t *menu_main_page_label_about;
     lv_obj_t *menu_main_page_label_reset;
 
+    // 设置页面->网络设置二级菜单相关组件
     lv_obj_t *menu_network_page;
     lv_obj_t *menu_network_page_cont1;
     lv_obj_t *menu_network_page_tips_label;
     lv_obj_t *menu_network_page_refresh_button;
     lv_obj_t *menu_network_page_refresh_button_label;
-
     lv_obj_t *menu_network_page_cont2;
     lv_obj_t *menu_network_page_wifi_list;
     const char *clicked_wifi_name;
     lv_obj_t *menu_network_page_wifi_list_loading_image;
-
     lv_obj_t *menu_network_page_keyboard_mask; // 键盘遮罩层
     lv_obj_t *menu_network_page_password_dialog;
     lv_obj_t *menu_network_page_password_tips_label; // WiFi密码输入框
@@ -82,6 +86,7 @@ typedef struct {
     lv_obj_t *menu_network_page_password_confirm_button;
     lv_obj_t *menu_network_page_password_cancel_button;
 
+    // 设置页->大模型设置二级菜单相关组件
     lv_obj_t *menu_llm_page;
     lv_obj_t *menu_llm_page_cont1;
     lv_obj_t *menu_llm_page_voice_label;
@@ -96,20 +101,22 @@ typedef struct {
     lv_obj_t *menu_main_page_seperator2;
     lv_obj_t *menu_main_page_section_about;
 
-    lv_obj_t *menu_page_about;
-    lv_obj_t *menu_page_about_label1;
-    lv_obj_t *menu_page_about_label2;
-
+    // 设置页->恢复出厂设置二级页面相关组件
     lv_obj_t *menu_page_reset;
     lv_obj_t *menu_page_reset_button;
     lv_obj_t *menu_page_reset_button_label;
     lv_obj_t *menu_page_reset_msgbox;
     lv_obj_t *menu_page_reset_msgbox_confirm_button;
     lv_obj_t *menu_page_reset_msgbox_cancel_button;
+
+    // 设置页->关于二级菜单相关组件
+    lv_obj_t *menu_page_about;
+    lv_obj_t *menu_page_about_label1;
+    lv_obj_t *menu_page_about_label2;
 } lv_screens_info;
 
 extern lv_screens_info lv_ui;
 
-void setup_ui(lv_screens_info *ui);
+void setup_ui();
 
 #endif //LVGL_GUI_H
