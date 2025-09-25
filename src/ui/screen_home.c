@@ -2,32 +2,31 @@
 #include "lvgl.h"
 #include "gui.h"
 
-void anim_y_exe_cb(void *obj, int32_t y) {
-    lv_obj_set_y(obj, y);
-}
-
+// 隐藏顶部控制栏
 void hide_control_bar(uint32_t duration) {
     lv_anim_t anim;
     lv_anim_init(&anim);
     lv_anim_set_var(&anim, lv_ui.control_bar);
     lv_anim_set_values(&anim, 0, -lv_obj_get_height(lv_ui.control_bar));
     lv_anim_set_duration(&anim, duration);
-    lv_anim_set_exec_cb(&anim, anim_y_exe_cb);
+    lv_anim_set_exec_cb(&anim, (lv_anim_exec_xcb_t) lv_obj_set_y);
     lv_anim_start(&anim);
     lv_ui.control_bar_active = false;
 }
 
+// 显示顶部控制栏
 void show_control_bar(uint32_t duration) {
     lv_anim_t anim;
     lv_anim_init(&anim);
     lv_anim_set_var(&anim, lv_ui.control_bar);
     lv_anim_set_values(&anim, -lv_obj_get_height(lv_ui.control_bar), 0);
     lv_anim_set_duration(&anim, duration);
-    lv_anim_set_exec_cb(&anim, anim_y_exe_cb);
+    lv_anim_set_exec_cb(&anim, (lv_anim_exec_xcb_t) lv_obj_set_y);
     lv_anim_start(&anim);
     lv_ui.control_bar_active = true;
 }
 
+// 控制栏设置按钮点击回调函数
 void more_settings_click_event_callback(lv_event_t *event) {
     if (lv_event_get_code(event) == LV_EVENT_CLICKED) {
         hide_control_bar(100);
@@ -35,6 +34,7 @@ void more_settings_click_event_callback(lv_event_t *event) {
     }
 }
 
+// 顶部状态栏事件回调（双击隐藏或者显示控制栏）
 void status_bar_event_callback(lv_event_t *event) {
     if (lv_event_get_code(event) == LV_EVENT_DOUBLE_CLICKED) {
         if (!lv_ui.control_bar_active) {
@@ -45,6 +45,7 @@ void status_bar_event_callback(lv_event_t *event) {
     }
 }
 
+// 首页屏幕事件回调函数
 void screen_home_event_callback(lv_event_t *event) {
     const lv_event_code_t code = lv_event_get_code(event);
     if (code == LV_EVENT_GESTURE) {
@@ -57,7 +58,7 @@ void screen_home_event_callback(lv_event_t *event) {
             lv_anim_set_var(&anim, lv_ui.control_bar);
             lv_anim_set_values(&anim, -lv_obj_get_height(lv_ui.control_bar), 0);
             lv_anim_set_duration(&anim, 500);
-            lv_anim_set_exec_cb(&anim, anim_y_exe_cb);
+            lv_anim_set_exec_cb(&anim, (lv_anim_exec_xcb_t) lv_obj_set_y);
             lv_anim_start(&anim);
             lv_ui.control_bar_active = true;
         } else if (dir == LV_DIR_TOP && lv_ui.control_bar_active) {
@@ -68,7 +69,7 @@ void screen_home_event_callback(lv_event_t *event) {
             lv_anim_set_var(&anim, lv_ui.control_bar);
             lv_anim_set_values(&anim, 0, -lv_obj_get_height(lv_ui.control_bar));
             lv_anim_set_duration(&anim, 500);
-            lv_anim_set_exec_cb(&anim, anim_y_exe_cb);
+            lv_anim_set_exec_cb(&anim, (lv_anim_exec_xcb_t) lv_obj_set_y);
             lv_anim_start(&anim);
             lv_ui.control_bar_active = false;
         }
@@ -92,15 +93,16 @@ void setup_control_bar() {
     lv_obj_set_style_bg_color(lv_ui.control_bar_cont, lv_color_hex(0xe5f9ff), 0);
     lv_obj_remove_flag(lv_ui.control_bar_cont, LV_OBJ_FLAG_SCROLLABLE);
 
+    // 使用网格布局来部署音量和背光控制
     lv_obj_set_layout(lv_ui.control_bar_cont, LV_LAYOUT_GRID);
-    static const int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(5), LV_GRID_TEMPLATE_LAST};
+    static const int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(3), LV_GRID_TEMPLATE_LAST};
     static const int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
     lv_obj_set_grid_dsc_array(lv_ui.control_bar_cont, col_dsc, row_dsc);
     lv_obj_set_grid_align(lv_ui.control_bar_cont, LV_GRID_ALIGN_CENTER, LV_GRID_ALIGN_CENTER);
 
     lv_ui.control_bar_volume_image = lv_image_create(lv_ui.control_bar_cont);
     lv_obj_set_size(lv_ui.control_bar_volume_image, 30, 30);
-    lv_image_set_src(lv_ui.control_bar_volume_image, LV_CUSTOM_SYMBOL_VOLUME);
+    lv_image_set_src(lv_ui.control_bar_volume_image, LV_CUSTOM_SYMBOL_VOLUME" 音量");
     lv_obj_set_grid_cell(lv_ui.control_bar_volume_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
 
     lv_ui.control_bar_volume_slider = lv_slider_create(lv_ui.control_bar_cont);
@@ -111,7 +113,7 @@ void setup_control_bar() {
 
     lv_ui.control_bar_brightness_image = lv_image_create(lv_ui.control_bar_cont);
     lv_obj_set_size(lv_ui.control_bar_brightness_image, 30, 30);
-    lv_image_set_src(lv_ui.control_bar_brightness_image, LV_CUSTOM_SYMBOL_BRIGHTNESS);
+    lv_image_set_src(lv_ui.control_bar_brightness_image, LV_CUSTOM_SYMBOL_BRIGHTNESS" 背光");
     lv_obj_set_grid_cell(lv_ui.control_bar_brightness_image, LV_GRID_ALIGN_STRETCH, 0, 1, LV_GRID_ALIGN_CENTER, 1, 1);
 
     lv_ui.control_bar_brightness_slider = lv_slider_create(lv_ui.control_bar_cont);
@@ -133,9 +135,6 @@ void setup_control_bar() {
 }
 
 void setup_screen_home() {
-    if (lv_ui.screen_home != NULL) {
-        return;
-    }
     lv_ui.screen_home = lv_obj_create(NULL);
     lv_obj_set_style_text_font(lv_ui.screen_home, &AlibabaPuHuiTi_Regular_15, 0);
 

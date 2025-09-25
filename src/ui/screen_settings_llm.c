@@ -10,7 +10,7 @@ void setup_settings_llm() {
     lv_ui.menu_llm_page_cont1 = lv_menu_cont_create(lv_ui.menu_llm_page);
     lv_obj_set_style_pad_all(lv_ui.menu_llm_page_cont1, 10, 0);
     lv_ui.menu_llm_page_voice_label = lv_label_create(lv_ui.menu_llm_page_cont1);
-    lv_label_set_text(lv_ui.menu_llm_page_voice_label, "音色");
+    lv_label_set_text(lv_ui.menu_llm_page_voice_label, LV_CUSTOM_SYMBOL_VOICE" 音色");
     lv_ui.menu_llm_page_voice_dropdown = lv_dropdown_create(lv_ui.menu_llm_page_cont1);
     lv_obj_set_style_pad_hor(lv_ui.menu_llm_page_voice_dropdown, 10, 0);
     lv_obj_set_flex_grow(lv_ui.menu_llm_page_voice_dropdown, 1);
@@ -22,7 +22,7 @@ void setup_settings_llm() {
     lv_ui.menu_llm_page_cont2 = lv_menu_cont_create(lv_ui.menu_llm_page);
     lv_obj_set_style_pad_all(lv_ui.menu_llm_page_cont2, 10, 0);
     lv_ui.menu_llm_page_speed_label = lv_label_create(lv_ui.menu_llm_page_cont2);
-    lv_label_set_text(lv_ui.menu_llm_page_speed_label, "语速");
+    lv_label_set_text(lv_ui.menu_llm_page_speed_label, LV_CUSTOM_SYMBOL_SPEED" 语速");
     lv_ui.menu_llm_page_speed_slider = lv_slider_create(lv_ui.menu_llm_page_cont2);
     lv_slider_set_range(lv_ui.menu_llm_page_speed_slider, 8, 20);
     lv_obj_set_height(lv_ui.menu_llm_page_speed_slider, 5);
@@ -33,7 +33,7 @@ void setup_settings_llm() {
     lv_ui.menu_llm_page_cont3 = lv_menu_cont_create(lv_ui.menu_llm_page);
     lv_obj_set_style_pad_all(lv_ui.menu_llm_page_cont3, 10, 0);
     lv_ui.menu_llm_page_persona_label = lv_label_create(lv_ui.menu_llm_page_cont3);
-    lv_label_set_text(lv_ui.menu_llm_page_persona_label, "性格");
+    lv_label_set_text(lv_ui.menu_llm_page_persona_label, LV_CUSTOM_SYMBOL_PERSONA" 性格");
     lv_ui.menu_llm_page_persona_dropdown = lv_dropdown_create(lv_ui.menu_llm_page_cont3);
     lv_obj_set_style_pad_hor(lv_ui.menu_llm_page_persona_dropdown, 10, 0);
     lv_obj_set_flex_grow(lv_ui.menu_llm_page_persona_dropdown, 1);

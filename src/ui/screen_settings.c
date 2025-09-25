@@ -19,9 +19,6 @@ void menu_event_callback(lv_event_t *event) {
 }
 
 void setup_screen_settings() {
-    if (lv_ui.screen_settings != NULL) {
-        return;
-    }
     lv_ui.screen_settings = lv_obj_create(NULL);
     lv_obj_set_style_text_font(lv_ui.screen_settings, &AlibabaPuHuiTi_Regular_15, 0);
     lv_ui.menu = lv_menu_create(lv_ui.screen_settings);
