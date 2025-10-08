@@ -79,6 +79,7 @@ void LvglEventManager::registerLvglEventCallback() {
     lv_obj_add_event_cb(lv_ui.menu_network_page_keyboard_mask, hide_wifi_password_dialog_cb, LV_EVENT_CLICKED, NULL);
 
     // 亮度调节事件回调
+    // 如下这些代码的写法叫C++ lambda表达式，不懂的可以网上搜索学习一下
     lv_obj_add_event_cb(lv_ui.control_bar_brightness_slider, [](lv_event_t *event) {
         if (lv_event_get_code(event) == LV_EVENT_VALUE_CHANGED) {
             const int32_t value = lv_slider_get_value(lv_ui.control_bar_brightness_slider);
@@ -127,14 +128,10 @@ void LvglEventManager::registerLvglEventCallback() {
             if (GlobalState::getState() == Sleep ||
                 GlobalState::getState() == NetworkConnected) {
                 GlobalState::setState(Listening);
-                //                lv_anim_start(&lv_ui.status_bar_anim);
             }
         } else if (code == LV_EVENT_RELEASED) {
             if (GlobalState::getState() == Listening) {
                 GlobalState::setState(Recognizing);
-                //                lv_anim_pause(&lv_ui.status_bar_anim);
-                //                lv_obj_set_style_bg_opa(lv_ui.status_bar, LV_OPA_COVER, 0);
-                //                lv_obj_set_style_bg_grad_opa(lv_ui.status_bar, LV_OPA_COVER, 0);
             }
         }
     }, LV_EVENT_ALL, nullptr);

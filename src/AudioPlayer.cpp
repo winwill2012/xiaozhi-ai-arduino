@@ -69,7 +69,7 @@ void AudioPlayer::begin() {
 void AudioPlayer::stop() const {
     i2s_stop(MAX98357_I2S_NUM);
     i2s_zero_dma_buffer(MAX98357_I2S_NUM);
-    ESP_LOGI("AudioPlayer", "I2S卸载完毕==================");
+    ESP_LOGI(TAG, "I2S卸载完毕==================");
     while (uxQueueMessagesWaiting(_taskQueue) > 0) {
         PlayAudioTask task{};
         if (xQueueReceive(_taskQueue, &task, 0) == pdTRUE) {
@@ -82,9 +82,9 @@ void AudioPlayer::reset() {
     i2s_zero_dma_buffer(MAX98357_I2S_NUM);
     const error_t err = i2s_start(MAX98357_I2S_NUM);
     if (err != ESP_OK) {
-        ESP_LOGE("AudioPlayer", "I2S启动失败: %d", err);
+        ESP_LOGE(TAG, "I2S启动失败: %d", err);
     }
-    ESP_LOGI("AudioPlayer", "I2S准备完毕===================");
+    ESP_LOGI(TAG, "I2S准备完毕===================");
 }
 
 std::vector<int32_t> AudioPlayer::adjustVolume(const std::vector<int16_t> &input) {
@@ -106,23 +106,7 @@ std::vector<int32_t> AudioPlayer::adjustVolume(const std::vector<int16_t> &input
 
 void AudioPlayer::publishTask(const PlayAudioTask task) const {
     if (xQueueSend(_taskQueue, &task, portMAX_DELAY) != pdPASS) {
-        ESP_LOGE("AudioPlayer", "发送音频播放任务到队列失败，音频长度： %d bytes", task.length);
+        ESP_LOGE(TAG, "发送音频播放任务到队列失败，音频长度： %d bytes", task.length);
         free(task.data); // 发送到队列失败，则生产者负责将内存回收
     }
-}
-
-std::vector<int16_t> AudioPlayer::adjustVolume2(const std::vector<int16_t> &input) {
-    const double volumeRatio = Settings::getCurrentSpeakVolumeRatio(); // 当前设置的音量大小，范围[0, 1.0]
-    const double factor = pow(volumeRatio, 2);
-    std::vector<int16_t> output(input.size());
-    for (int i = 0; i < input.size(); i++) {
-        int16_t data = input[i] * factor;
-        if (data > INT16_MAX) {
-            data = INT16_MAX;
-        } else if (data < INT16_MIN) {
-            data = INT16_MIN;
-        }
-        output[i] = data;
-    }
-    return output;
 }

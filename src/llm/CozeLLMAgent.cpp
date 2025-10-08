@@ -104,7 +104,7 @@ void CozeLLMAgent::processStreamOutput(String data) {
     document.clear();
     const DeserializationError error = deserializeJson(document, data);
     if (error != DeserializationError::Ok) {
-        ESP_LOGE("LLM", "解析智能体请求结果失败: %s", data.c_str());
+        ESP_LOGE(TAG, "解析智能体请求结果失败: %s", data.c_str());
         return;
     }
     String content = document["content"];

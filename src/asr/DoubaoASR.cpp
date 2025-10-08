@@ -9,6 +9,8 @@
 #include "ArduinoJson.h"
 #include "GlobalState.h"
 
+static auto TAG = "ASR";
+
 DoubaoASR::DoubaoASR() {
     _eventGroup = xEventGroupCreate();
     _requestBuilder = std::vector<uint8_t>();
@@ -26,10 +28,10 @@ void DoubaoASR::eventCallback(WStype_t type, uint8_t *payload, size_t length) {
         case WStype_ERROR:
             break;
         case WStype_CONNECTED:
-            ESP_LOGD("ASR", "websocket连接成功");
+            ESP_LOGD(TAG, "websocket连接成功");
             break;
         case WStype_DISCONNECTED:
-            ESP_LOGD("ASR", "websocket断开连接");
+            ESP_LOGD(TAG, "websocket断开连接");
             break;
         case WStype_TEXT: {
             break;
@@ -101,7 +103,7 @@ void DoubaoASR::buildAudioOnlyRequest(uint8_t *audio, const size_t size, const b
 }
 
 void DoubaoASR::recognize(DoubaoASRTask task) {
-    ESP_LOGD("ASR", "开始语音识别请求: 音频长度：%d, 第一个包：%d, 最后一个包：%d", task.data.size(), task.firstPacket,
+    ESP_LOGD(TAG, "开始语音识别请求: 音频长度：%d, 第一个包：%d, 最后一个包：%d", task.data.size(), task.firstPacket,
              task.lastPacket);
     if (task.firstPacket) {
         xEventGroupClearBits(_eventGroup, STT_TASK_COMPLETED_EVENT);
@@ -111,13 +113,13 @@ void DoubaoASR::recognize(DoubaoASRTask task) {
         }
         buildFullClientRequest();
         if (!sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
-            ESP_LOGE("ASR", "发送语音识别请求包头失败");
+            ESP_LOGE(TAG, "发送语音识别请求包头失败");
         }
         loop();
     }
     buildAudioOnlyRequest(task.data.data(), task.data.size(), task.lastPacket);
     if (!sendBIN(_requestBuilder.data(), _requestBuilder.size())) {
-        ESP_LOGE("ASR", "发送语音识别音频数据包失败");
+        ESP_LOGE(TAG, "发送语音识别音频数据包失败");
     }
     loop();
     if (task.lastPacket) {
@@ -133,7 +135,7 @@ void DoubaoASR::recognize(DoubaoASRTask task) {
 void DoubaoASR::parseResponse(const uint8_t *response) {
     const uint8_t messageType = response[1] >> 4;
     const uint8_t *payload = response + 4;
-    ESP_LOGV("ASR", "收到websocket消息类型: %d", messageType);
+    ESP_LOGV(TAG, "收到websocket消息类型: %d", messageType);
     switch (messageType) {
         case 0b1001: {
             // 服务端下发包含识别结果的 full server response
@@ -143,7 +145,7 @@ void DoubaoASR::parseResponse(const uint8_t *response) {
             JsonDocument jsonResult;
             const DeserializationError err = deserializeJson(jsonResult, recognizeResult);
             if (err) {
-                ESP_LOGE("ASR", "解析语音识别结果失败");
+                ESP_LOGE(TAG, "解析语音识别结果失败");
                 return;
             }
             const String reqId = jsonResult["reqid"];
@@ -151,7 +153,7 @@ void DoubaoASR::parseResponse(const uint8_t *response) {
             const String message = jsonResult["message"];
             const int32_t sequence = jsonResult["sequence"];
             const JsonArray result = jsonResult["result"];
-            ESP_LOGD("ASR", "语音识别结果，sequence = %d, code = %d, message = %s, result size = %d",
+            ESP_LOGD(TAG, "语音识别结果，sequence = %d, code = %d, message = %s, result size = %d",
                      sequence, code, message.c_str(), result.size());
             if (sequence < 0) {
                 xEventGroupSetBits(_eventGroup, STT_TASK_COMPLETED_EVENT);
@@ -164,7 +166,7 @@ void DoubaoASR::parseResponse(const uint8_t *response) {
                         _firstPacket = false;
                     }
                     if (sequence < 0) {
-                        ESP_LOGI("ASR", "语音识别结果: %s", text.c_str());
+                        ESP_LOGI(TAG, "语音识别结果: %s", text.c_str());
                         LLMTask task{};
                         task.message = static_cast<char *>(ps_malloc(sizeof(char) * text.length()));
                         task.length = text.length();
@@ -185,9 +187,9 @@ void DoubaoASR::parseResponse(const uint8_t *response) {
             const uint32_t messageLength = readInt32(payload);
             payload += 4;
             const std::string errorMessage = readString(payload, messageLength);
-            ESP_LOGE("ASR", "语音识别失败: ");
-            ESP_LOGE("ASR", "  错误码 =  %u\n", errorCode);
-            ESP_LOGE("ASR", "错误描述 =  %s\n", errorMessage.c_str());
+            ESP_LOGE(TAG, "语音识别失败: ");
+            ESP_LOGE(TAG, "  错误码 =  %u\n", errorCode);
+            ESP_LOGE(TAG, "错误描述 =  %s\n", errorMessage.c_str());
             xEventGroupSetBits(_eventGroup, STT_TASK_COMPLETED_EVENT);
         }
         default: {
